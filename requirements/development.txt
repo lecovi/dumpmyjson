@@ -2,4 +2,3 @@
 colorama==0.3.7
 ForgeryPy==0.1
 httpie==0.9.9
-rainbow-logging-handler==2.2.2

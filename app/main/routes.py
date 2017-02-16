@@ -1,8 +1,8 @@
 """
-    flaskngo.main.routes
+    dumpmyjson.main.routes
     ~~~~~~~~~~~~~~~~~~~~~
     
-    Main domi routes module
+    Main dumpmyjson routes module
     
     :copyright: (c) 2016 by Cooperativa de Trabajo BITSON Ltda..
     :author: Leandro E. Colombo Viña <colomboleandro at bitson.com.ar>.
@@ -42,7 +42,7 @@ def index():
     response = {
         'data': {
             'url': url_for('main.index', _external=True),
-            'message': 'POST a JSON in /data and TEST API',
+            'message': 'POST a JSON in /data and TEST this API',
             'about': url_for('main.about', _external=True),
         }
     }

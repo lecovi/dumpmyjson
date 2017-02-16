@@ -7,12 +7,12 @@
 4. Create tables with data & superuser.
 
 ```bash
-$ git clone https://github.com/lecovi/flaskngo.git
+$ git clone https://github.com/lecovi/dumpmyjson.git
 $ cd flaskngo
 $ git checkout master   # Creating local master branch
 $ git checkout develop  # Going back to develop branch
 $ git flow init -d
-$ mkvirtualenv -p $(which python3) domi
+$ mkvirtualenv -p $(which python3) dumpmyjson
 $ pip install -r requirements/development.txt
 $ docker run --name dumpmyjson-db -e POSTGRES_PASSWORD=lecovi.dumpmyjson -e POSTGRES_USER=lecovi -e POSTGRES_DB=dumpmyjson -p 5432:5432 -d postgres
 $ cp .env.dist .env     # Make sure to change your variables!
@@ -62,3 +62,30 @@ $ ./manage.py new_package
 ```
  * `-n`: package name
  * `-d`: package description
+
+# Deploy
+
+1. Clone repo
+2. Create virtualenv with production requirements.
+3. Create Docker DB.
+4. Initialize Tables.
+5. Configure Supervisor
+
+```bash
+$ git clone https://github.com/lecovi/dumpmyjson.git
+$ cd dumpmyjson
+$ mkvirtualenv -p $(which python3) dumpmyjson
+(dumpmyjson) $ pip install -r requirements/production.txt
+$ docker run --name dumpmyjson-db -e POSTGRES_PASSWORD=lecovi.dumpmyjson -e POSTGRES_USER=lecovi -e POSTGRES_DB=dumpmyjson -p 5432:5432 -d postgres
+$ cp .env.dist .env     # Make sure to change your variables!
+$ ./manage.py db create
+$ cp ./utils/deploy/supervisor/dumpmyjson.conf /etc/supervisor/conf.d/dumpmyjson.conf
+```
+
+## Test
+
+1. Run application with gunicorn
+
+```bash
+(dumpmyjson) $ gunicorn --bind 0.0.0.0:8000 --workers 2 wsgi:app
+```
