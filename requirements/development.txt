@@ -1,4 +1,4 @@
 -r common.txt
 colorama==0.3.7
 ForgeryPy==0.1
-httpie==0.9.9
+httpie==3.1.0
